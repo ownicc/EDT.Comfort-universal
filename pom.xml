@@ -9,12 +9,10 @@
   <version>1.0.9-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <prerequisites>
-    <maven>3.9.4</maven>
-  </prerequisites>
+
 
   <properties>
-    <tycho.version>4.0.5</tycho.version>
+    <tycho.version>5.0.4</tycho.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compiler.source>17</maven.compiler.source>
@@ -34,7 +32,7 @@
   </modules>
 
   <build>
-    <directory>${project.basedir}/build</directory>
+    <directory>${maven.multiModuleProjectDirectory}/build/${project.artifactId}</directory>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -42,9 +40,8 @@
           <artifactId>target-platform-configuration</artifactId>
           <version>${tycho.version}</version>
           <configuration>
-            <resolver>p2</resolver>
             <executionEnvironment>JavaSE-17</executionEnvironment>
-            <includePackedArtifacts>false</includePackedArtifacts>
+            <targetDefinitionIncludeSource>ignore</targetDefinitionIncludeSource>
             <target>
               <file>${maven.multiModuleProjectDirectory}/target/tp.target</file>
             </target>
@@ -55,16 +52,6 @@
                 <arch>x86_64</arch>
               </environment>
             </environments>
-            <dependency-resolution>
-              <optionalDependencies>ignore</optionalDependencies>
-              <extraRequirements>
-                <requirement>
-                  <type>eclipse-plugin</type>
-                  <id>org.apache.felix.scr</id>
-                  <versionRange>0.0.0</versionRange>
-                </requirement>
-              </extraRequirements>
-            </dependency-resolution>
           </configuration>
         </plugin>
         <plugin>
@@ -80,7 +67,6 @@
           <configuration>
             <encoding>UTF-8</encoding>
             <useProjectSettings>false</useProjectSettings>
-            <validateClasspath>false</validateClasspath>
           </configuration>
         </plugin>
         <plugin>
@@ -117,6 +103,10 @@
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>tycho-maven-plugin</artifactId>
         <extensions>true</extensions>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>target-platform-configuration</artifactId>
       </plugin>
     </plugins>
   </build>

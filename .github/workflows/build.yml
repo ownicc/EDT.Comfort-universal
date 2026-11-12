@@ -1,0 +1,78 @@
+name: Build p2 archive
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: comfort-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Cache Maven and Tycho dependencies
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: |
+            .tmp/maven/home
+            .tmp/maven/repository
+          key: ${{ runner.os }}-jdk21-tycho-${{ hashFiles('**/pom.xml', 'target/*.target', '.mvn/**', 'mvnw', 'mvnw.cmd') }}
+          restore-keys: |
+            ${{ runner.os }}-jdk21-tycho-
+
+      - name: Test Tycho packaging on synthetic bundles
+        run: python3 tests/tycho-build/run.py
+
+      - name: Build Comfort and p2 archive
+        run: python3 scripts/build_tycho.py
+
+      - name: Prepare installation artifact
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          mkdir -p .tmp/ci-artifact
+          cp build/comfort.site/tormozit.comfort.zip .tmp/ci-artifact/
+          printf '%s\n' "$COMMIT_SHA" > .tmp/ci-artifact/commit.txt
+          cd .tmp/ci-artifact
+          sha256sum tormozit.comfort.zip > SHA256SUMS
+          printf 'Commit: `%s`\n\n' "$COMMIT_SHA" >> "$GITHUB_STEP_SUMMARY"
+          cat SHA256SUMS >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload installation archive
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: comfort-p2-${{ github.sha }}
+          path: .tmp/ci-artifact/
+          include-hidden-files: true
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 30
+
+      - name: Upload build logs
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: comfort-build-logs-${{ github.sha }}
+          path: |
+            .tmp/tycho-runs/
+            .tmp/tycho-tests/latest/
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 14

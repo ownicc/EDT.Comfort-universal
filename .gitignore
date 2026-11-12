@@ -27,3 +27,6 @@ site/scripts/pde-local.properties
 
 # Снапшоты opencode перед правками (генерируются автоматически)
 .opencode/snapshots/
+
+# Tycho build output
+/build/
