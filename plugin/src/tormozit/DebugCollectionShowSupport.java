@@ -81,7 +81,7 @@ public final class DebugCollectionShowSupport
         if (frame == null)
             frame = DebugSessionHelper.findSuspendedStackFrame(null);
         BslValuePath path = indexed.getPath();
-        if (path == null && indexed instanceof IBslValue bslValue)
+        if (path == null && (Object) (indexed) instanceof IBslValue bslValue)
             path = bslValue.getPath();
         DebugCollectionOpener.open(indexed, frame, path, DebugCollectionOpener.OpenMode.NORMAL);
         DebugCollectionDebug.step("open", pathKey(path)); //$NON-NLS-1$
@@ -248,7 +248,7 @@ public final class DebugCollectionShowSupport
     {
         String exprText = resolveExpressionTextForOpen(element, view);
         BslValuePath fallback = indexed.getPath();
-        if (fallback == null && indexed instanceof IBslValue bslValue)
+        if (fallback == null && (Object) (indexed) instanceof IBslValue bslValue)
             fallback = bslValue.getPath();
 
         if (!exprText.isBlank())

@@ -429,7 +429,7 @@ public final class ProblemViewHook implements IStartup
                             Label status = UpdateWaitIndicator.statusLabel(view);
                             UpdateWaitIndicator.apply(view, status);
                             applyStatsTooltip(status);
-                            if (view.getAdapter(TreeViewer.class) instanceof TreeViewer viewer)
+                            if ((Object) (view.getAdapter(TreeViewer.class)) instanceof TreeViewer viewer)
                                 viewer.refresh();
                         }
                     }
@@ -1953,7 +1953,7 @@ public final class ProblemViewHook implements IStartup
      */
     private static void installTypeRename(IViewPart view)
     {
-        if (!(view.getAdapter(TreeViewer.class) instanceof TreeViewer viewer))
+        if (!((Object) (view.getAdapter(TreeViewer.class)) instanceof TreeViewer viewer))
             return;
         Tree tree = viewer.getTree();
         if (tree == null || tree.isDisposed())
@@ -2289,7 +2289,7 @@ public final class ProblemViewHook implements IStartup
         /** Список обновился — состав групп мог измениться; пересчитать видимые. */
         static void invalidate(IViewPart view)
         {
-            if (!(view.getAdapter(TreeViewer.class) instanceof TreeViewer viewer)
+            if (!((Object) (view.getAdapter(TreeViewer.class)) instanceof TreeViewer viewer)
                 || viewer.getTree().isDisposed() || !(viewer.getTree().getData(KEY) instanceof State state))
                 return;
             state.generation++;
@@ -2436,7 +2436,7 @@ public final class ProblemViewHook implements IStartup
      */
     private static void installOpenOverride(IViewPart view)
     {
-        if (!(view.getAdapter(TreeViewer.class) instanceof TreeViewer viewer))
+        if (!((Object) (view.getAdapter(TreeViewer.class)) instanceof TreeViewer viewer))
             return;
         Tree tree = viewer.getTree();
         if (tree == null || tree.isDisposed() || Boolean.TRUE.equals(tree.getData(OPEN_OVERRIDE_KEY)))
@@ -3472,7 +3472,7 @@ public final class ProblemViewHook implements IStartup
 
         // Метку установки снять при закрытии панели (иначе следующий её экземпляр
         // не переустановит хук).
-        if (view.getAdapter(TreeViewer.class) instanceof TreeViewer viewer
+        if ((Object) (view.getAdapter(TreeViewer.class)) instanceof TreeViewer viewer
             && viewer.getTree() != null && !viewer.getTree().isDisposed())
         {
             viewer.getTree().addDisposeListener(e ->

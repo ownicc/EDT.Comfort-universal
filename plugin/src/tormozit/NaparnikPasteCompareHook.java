@@ -474,7 +474,7 @@ public final class NaparnikPasteCompareHook implements IStartup
                 return ctx;
         }
         boolean editable = true;
-        if (viewer.getTextWidget() instanceof StyledText styledText)
+        if ((Object) (viewer.getTextWidget()) instanceof StyledText styledText)
             editable = styledText.getEditable();
         return TextEditor.buildContext(viewer, compareExtension(ui, viewer, editor), editable);
     }

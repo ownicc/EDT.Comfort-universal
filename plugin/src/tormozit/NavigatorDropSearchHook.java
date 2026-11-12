@@ -573,7 +573,7 @@ public final class NavigatorDropSearchHook implements IStartup
                         List<Object> content = (List<Object>) raw;
                         for (MdObject object : objects)
                         {
-                            if (transaction.toTransactionObject(object) instanceof MdObject txObject
+                            if ((Object) (transaction.toTransactionObject(object)) instanceof MdObject txObject
                                 && !content.contains(txObject))
                                 content.add(txObject);
                         }
@@ -599,7 +599,7 @@ public final class NavigatorDropSearchHook implements IStartup
         {
             for (MdObject object : objects)
             {
-                if (!(transaction.toTransactionObject(object) instanceof MdObject txObject)
+                if (!((Object) (transaction.toTransactionObject(object)) instanceof MdObject txObject)
                     || plan.getContent().stream().anyMatch(item -> item.getMdObject() == txObject))
                     continue;
                 new ExchangePlanContentTask(plan, txObject, AutoRegistrationChanges.ALLOW).execute(plan, monitor);

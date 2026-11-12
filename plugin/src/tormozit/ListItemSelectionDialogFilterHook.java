@@ -260,7 +260,7 @@ public final class ListItemSelectionDialogFilterHook implements IStartup
     {
         if (filterWidget == null || filterWidget.isDisposed())
             return;
-        if (!(filterWidget.getParent() instanceof Composite dialogArea)
+        if (!((Object) (filterWidget.getParent()) instanceof Composite dialogArea)
                 || dialogArea.isDisposed()
                 || !(dialogArea.getLayout() instanceof GridLayout gridLayout))
             return;

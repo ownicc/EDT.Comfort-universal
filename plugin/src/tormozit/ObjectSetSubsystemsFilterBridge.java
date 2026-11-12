@@ -927,7 +927,7 @@ public final class ObjectSetSubsystemsFilterBridge implements IStartup
      */
     private static void syncExpandPreCheckFilters(CommonViewer viewer)
     {
-        if (!(viewer instanceof TreeViewer treeViewer))
+        if (!((Object) (viewer) instanceof TreeViewer treeViewer))
             return;
         boolean want = ObjectSetsNavigatorFilterSupport.isActive();
         Object current = Global.getField(treeViewer, "isExpandableCheckFilters"); //$NON-NLS-1$
@@ -1095,7 +1095,7 @@ public final class ObjectSetSubsystemsFilterBridge implements IStartup
     {
         if (!ObjectSetsNavigatorFilterSupport.isActive() || viewer == null)
             return;
-        if (!(viewer instanceof TreeViewer treeViewer))
+        if (!((Object) (viewer) instanceof TreeViewer treeViewer))
             return;
         CombinedSubsystemsFilter wrapper = findWrapperFilter(viewer);
         if (wrapper == null)
@@ -1116,7 +1116,7 @@ public final class ObjectSetSubsystemsFilterBridge implements IStartup
     {
         if (!ObjectSetsNavigatorFilterSupport.isActive() || viewer == null)
             return;
-        if (!(viewer instanceof TreeViewer treeViewer))
+        if (!((Object) (viewer) instanceof TreeViewer treeViewer))
             return;
         CombinedSubsystemsFilter wrapper = findWrapperFilter(viewer);
         if (wrapper == null)
@@ -1149,7 +1149,7 @@ public final class ObjectSetSubsystemsFilterBridge implements IStartup
                 var contentProvider = viewer.getContentProvider();
                 if (wrapper == null || !(contentProvider instanceof ITreeContentProvider tcp))
                     return;
-                if (!(viewer instanceof TreeViewer treeViewer))
+                if (!((Object) (viewer) instanceof TreeViewer treeViewer))
                     return;
                 Object element = event.item != null ? event.item.getData() : null;
                 if (element != null && treeContentProviderHasChildren(tcp, element))

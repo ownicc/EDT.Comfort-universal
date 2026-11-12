@@ -487,7 +487,7 @@ public final class BslExpressionField
 
     private static void wireLinkedModeFocusOwner(StyledText text, SourceViewer viewer)
     {
-        if (!(viewer instanceof IEditingSupportRegistry registry))
+        if (!((Object) (viewer) instanceof IEditingSupportRegistry registry))
             return;
         IEditingSupport support = new IEditingSupport()
         {

@@ -741,7 +741,7 @@ boolean inLiteral = endCaret >= 0
     {
         if (inputJumpProbe == null)
             return;
-        StyledText text = viewer.getTextWidget() instanceof StyledText st ? st : null;
+        StyledText text = (Object) (viewer.getTextWidget()) instanceof StyledText st ? st : null;
         inputJumpProbe.uninstall(text);
         inputJumpProbe = null;
     }
@@ -799,7 +799,7 @@ boolean inLiteral = endCaret >= 0
                 return;
             if (!ContentAssistPopupSync.isPopupVisible(assistant))
                 return;
-            StyledText text = viewer.getTextWidget() instanceof StyledText st ? st : null;
+            StyledText text = (Object) (viewer.getTextWidget()) instanceof StyledText st ? st : null;
             if (text == null || text.isDisposed())
                 return;
             int liveCaret = modelCaretOffset();
@@ -861,7 +861,7 @@ boolean inLiteral = endCaret >= 0
     {
         if (styledTextKeyListener != null)
             return;
-        StyledText text = viewer.getTextWidget() instanceof StyledText st ? st : null;
+        StyledText text = (Object) (viewer.getTextWidget()) instanceof StyledText st ? st : null;
         if (text == null || text.isDisposed())
             return;
         styledTextKeyListener = this::onStyledTextKeyDown;
@@ -874,7 +874,7 @@ boolean inLiteral = endCaret >= 0
         styledTextKeyListenerInstalled = false;
         if (styledTextKeyListener == null)
             return;
-        StyledText text = viewer.getTextWidget() instanceof StyledText st ? st : null;
+        StyledText text = (Object) (viewer.getTextWidget()) instanceof StyledText st ? st : null;
         if (text != null && !text.isDisposed())
             text.removeListener(SWT.KeyDown, styledTextKeyListener);
         styledTextKeyListener = null;
@@ -884,7 +884,7 @@ boolean inLiteral = endCaret >= 0
     {
         if (completionAutoOpenVerifyListener != null)
             return;
-        StyledText text = viewer.getTextWidget() instanceof StyledText st ? st : null;
+        StyledText text = (Object) (viewer.getTextWidget()) instanceof StyledText st ? st : null;
         if (text == null || text.isDisposed())
         {
             return;
@@ -897,7 +897,7 @@ boolean inLiteral = endCaret >= 0
     {
         if (completionAutoOpenVerifyListener == null)
             return;
-        StyledText text = viewer.getTextWidget() instanceof StyledText st ? st : null;
+        StyledText text = (Object) (viewer.getTextWidget()) instanceof StyledText st ? st : null;
         if (text != null && !text.isDisposed())
             text.removeVerifyKeyListener(completionAutoOpenVerifyListener);
         completionAutoOpenVerifyListener = null;
@@ -2005,7 +2005,7 @@ boolean inLiteral = endCaret >= 0
      */
     private void dropLinkedModeParamHint()
     {
-        StyledText text = viewer != null && viewer.getTextWidget() instanceof StyledText st ? st : null;
+        StyledText text = viewer != null && (Object) (viewer.getTextWidget()) instanceof StyledText st ? st : null;
         Display display = text != null && !text.isDisposed() ? text.getDisplay() : null;
         if (display == null || display.isDisposed())
             return;
@@ -2054,7 +2054,7 @@ boolean inLiteral = endCaret >= 0
     /** Поле кода BSL в диалоге (инспектор, точка останова): {@link BslExpressionField}. */
     private boolean isExpressionFieldViewer()
     {
-        StyledText text = viewer != null && viewer.getTextWidget() instanceof StyledText st ? st : null;
+        StyledText text = viewer != null && (Object) (viewer.getTextWidget()) instanceof StyledText st ? st : null;
         return BslExpressionField.isFieldWidget(text)
             || DebugInspectorHook.isInspectExpressionViewer(viewer);
     }
@@ -5072,7 +5072,7 @@ boolean inLiteral = endCaret >= 0
     private void fireCompletionAutoOpenTimer(int expectedCaretAfter, int autoOpenSeq, int gen)
     {
         int genGlobal = completionAutoOpenScheduleGen.get();
-        StyledText text = viewer.getTextWidget() instanceof StyledText st ? st : null;
+        StyledText text = (Object) (viewer.getTextWidget()) instanceof StyledText st ? st : null;
         // expectedCaretAfter пришёл из DocumentEvent — модельный офсет, поэтому и live тоже модельный
         int liveCaret = text != null && !text.isDisposed() ? toModelOffset(text.getCaretOffset()) : -1;
         boolean popupVisible = ContentAssistPopupSync.isPopupVisible(assistant);
@@ -5714,7 +5714,7 @@ return false;
     {
         if (event.type != SWT.KeyDown || !isCtrlSpaceKeyEvent(event))
             return;
-        StyledText text = viewer.getTextWidget() instanceof StyledText st ? st : null;
+        StyledText text = (Object) (viewer.getTextWidget()) instanceof StyledText st ? st : null;
         if (text == null || text.isDisposed())
             return;
         int caret = toModelOffset(text.getCaretOffset());
@@ -5872,7 +5872,7 @@ if (!inLiteral)
 
     private StyledText gateWidget()
     {
-        return viewer != null && viewer.getTextWidget() instanceof StyledText st && !st.isDisposed()
+        return viewer != null && (Object) (viewer.getTextWidget()) instanceof StyledText st && !st.isDisposed()
             ? st : null;
     }
 
@@ -6577,7 +6577,7 @@ if (!inLiteral)
 
     int widgetSelectionLength()
     {
-        StyledText st = viewer.getTextWidget() instanceof StyledText s ? s : null;
+        StyledText st = (Object) (viewer.getTextWidget()) instanceof StyledText s ? s : null;
         return st != null && !st.isDisposed() ? st.getSelectionCount() : -1;
     }
 
@@ -7431,7 +7431,7 @@ LITERAL_REPEAT_FROM_COMMAND.set(Boolean.TRUE);
                 return;
             if (!isCtrlSpaceKeyEvent(event))
                 return;
-            StyledText text = viewer.getTextWidget() instanceof StyledText st ? st : null;
+            StyledText text = (Object) (viewer.getTextWidget()) instanceof StyledText st ? st : null;
             if (!isOwnWidgetFocused(text))
                 return;
             SmartContentAssistProcessor.markCtrlSpaceInvocation();
@@ -7993,7 +7993,7 @@ return;
         {
             if (host.viewer == null)
                 return null;
-            return host.viewer.getTextWidget() instanceof StyledText st && !st.isDisposed()
+            return (Object) (host.viewer.getTextWidget()) instanceof StyledText st && !st.isDisposed()
                 ? st : null;
         }
 

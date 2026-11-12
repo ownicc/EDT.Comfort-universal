@@ -360,7 +360,7 @@ public final class MdEditorGlobalCommandsPageHook implements IStartup
                         rows.add(command);
             rows.sort((a, b) -> String.CASE_INSENSITIVE_ORDER.compare(nameOf(a), nameOf(b)));
             viewer.setInput(rows);
-            if (getEditor() instanceof DtGranularEditor<?> granularEditor)
+            if ((Object) (getEditor()) instanceof DtGranularEditor<?> granularEditor)
                 MdEditorTabsHook.requestRefresh(granularEditor);
         }
     }

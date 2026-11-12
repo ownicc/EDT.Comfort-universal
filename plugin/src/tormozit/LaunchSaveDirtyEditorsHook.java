@@ -897,7 +897,7 @@ public final class LaunchSaveDirtyEditorsHook implements IStartup
 
     private static void addBmIdFromBsl(BslXtextEditor editor, LinkedHashSet<Object> ids)
     {
-        if (editor == null || !(editor.getDocument() instanceof IXtextDocument document))
+        if (editor == null || !((Object) (editor.getDocument()) instanceof IXtextDocument document))
             return;
         try
         {

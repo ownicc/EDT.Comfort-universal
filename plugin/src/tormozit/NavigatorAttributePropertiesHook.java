@@ -93,7 +93,7 @@ public final class NavigatorAttributePropertiesHook implements IStartup
     private static IViewPart navigatorForTree(Tree tree)
     {
         IViewPart view = Global.getViewById(Global.NAVIGATOR_VIEW_ID);
-        if (!(view instanceof IViewPart navigator))
+        if (!((Object) (view) instanceof IViewPart navigator))
             return null;
         CommonViewer viewer = getCommonViewer(navigator);
         return viewer != null && viewer.getTree() == tree ? navigator : null;

@@ -1044,7 +1044,7 @@ public final class MdEventHandlersPageHook implements IStartup
                 Object input = bundle.loadClass(EDITOR_INPUT_CLASS)
                     .getConstructor(Configuration.class).newInstance(configuration);
 
-                if (!(getEditor() instanceof DtGranularEditor<?> granularEditor))
+                if (!((Object) (getEditor()) instanceof DtGranularEditor<?> granularEditor))
                 {
                     showError("Редактор объекта метаданных недоступен"); //$NON-NLS-1$
                     return;
@@ -1555,7 +1555,7 @@ public final class MdEventHandlersPageHook implements IStartup
                     refreshSourceList();
                     syncSourceChecks();
                     scheduleSyncChecks();
-                    if (getEditor() instanceof DtGranularEditor<?> granularEditor)
+                    if ((Object) (getEditor()) instanceof DtGranularEditor<?> granularEditor)
                         MdEditorTabsHook.requestRefresh(granularEditor);
                 });
         }
@@ -2139,7 +2139,7 @@ public final class MdEventHandlersPageHook implements IStartup
                 // а сверка состояния (scheduleSyncChecks) вернёт свёртки и текущую строку.
                 scheduleSyncChecks();
                 refreshSourceList();
-                if (getEditor() instanceof DtGranularEditor<?> granularEditor)
+                if ((Object) (getEditor()) instanceof DtGranularEditor<?> granularEditor)
                     MdEditorTabsHook.requestRefresh(granularEditor);
             });
         }
@@ -2351,7 +2351,7 @@ public final class MdEventHandlersPageHook implements IStartup
 
         private boolean isActivePage()
         {
-            if (!(getEditor() instanceof DtGranularEditor<?> granularEditor))
+            if (!((Object) (getEditor()) instanceof DtGranularEditor<?> granularEditor))
                 return false;
             // Сайт страницы (init) не вызывается — берём сайт granular-редактора
             if (granularEditor.getSite() == null || granularEditor.getSite().getPage() == null)

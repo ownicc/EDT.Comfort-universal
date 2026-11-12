@@ -158,7 +158,7 @@ final class TypeByNameAdvisor
         boolean references)
     {
         List<TypeNameFromVariableName.MetaType> result = new ArrayList<>();
-        if (!(typeItems(typeModel) instanceof List<?> types))
+        if (!((Object) (typeItems(typeModel)) instanceof List<?> types))
             return result;
         Naparnik.DefinedTypeClassifier classifier = new Naparnik.DefinedTypeClassifier(project);
         for (Object item : types)
@@ -843,7 +843,7 @@ final class TypeByNameAdvisor
             Map<String, String> matchingDefined = new LinkedHashMap<>();
             Map<String, String> otherDefined = new LinkedHashMap<>();
             DefinedTypeClassifier classifier = new DefinedTypeClassifier(project);
-            if (typeItems(typeModel) instanceof List<?> types)
+            if ((Object) (typeItems(typeModel)) instanceof List<?> types)
             {
                 for (Object item : types)
                 {
@@ -917,7 +917,7 @@ final class TypeByNameAdvisor
          */
         static String exactNameType(IProject project, Object typeModel, String name)
         {
-            if (!(typeItems(typeModel) instanceof List<?> types))
+            if (!((Object) (typeItems(typeModel)) instanceof List<?> types))
                 return null;
             String reference = null;
             for (Object item : types)

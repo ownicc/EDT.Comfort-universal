@@ -112,7 +112,7 @@ public final class RecentPlaces
         new LinkedHashMap<>(MAX_SIZE * 2, 0.75f, true)
     {
         @Override
-        protected boolean removeEldestEntry(Map.Entry<String, Entry> eldest)
+        protected boolean removeEldestEntry(Map.Entry<String, RecentPlaces.Entry> eldest)
         {
             return size() > MAX_SIZE;
         }

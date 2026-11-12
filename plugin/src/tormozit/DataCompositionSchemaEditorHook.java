@@ -669,7 +669,7 @@ public class DataCompositionSchemaEditorHook implements IStartup
             int widgetOffset = viewer.getTextWidget().getOffsetAtPoint(new Point(event.x, event.y));
             if (widgetOffset < 0)
                 return false;
-            int offset = viewer instanceof ITextViewerExtension5 extension
+            int offset = (Object) (viewer) instanceof ITextViewerExtension5 extension
                 ? extension.widgetOffset2ModelOffset(widgetOffset) : widgetOffset;
             String alias = editor.getDocument().readOnly(resource -> aliasAt(resource, offset));
             if (alias == null)

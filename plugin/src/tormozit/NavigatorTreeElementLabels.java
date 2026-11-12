@@ -109,7 +109,7 @@ public final class NavigatorTreeElementLabels
             return owner != null && !owner.isBlank() ? owner : fullName.trim();
         }
         MdObject md = resolveMdObject(element);
-        if (!(md instanceof EObject eObject))
+        if (!((Object) (md) instanceof EObject eObject))
             return null;
         if (MdClassPackage.Literals.CONFIGURATION.equals(eObject.eClass()))
             return null;
@@ -127,7 +127,7 @@ public final class NavigatorTreeElementLabels
         if (!element.getClass().getName().contains("FolderNavigatorAdapter")) //$NON-NLS-1$
             return false;
         MdObject md = resolveMdObject(element);
-        if (!(md instanceof EObject eObject))
+        if (!((Object) (md) instanceof EObject eObject))
             return false;
         if (MdClassPackage.Literals.CONFIGURATION.equals(eObject.eClass()))
             return false;

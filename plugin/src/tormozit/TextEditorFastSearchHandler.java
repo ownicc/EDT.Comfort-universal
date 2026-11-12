@@ -68,7 +68,7 @@ public final class TextEditorFastSearchHandler extends AbstractHandler
         if (textEditor != null)
         {
             viewer = TextEditor.getSourceViewer(textEditor);
-            if (viewer != null && viewer.getTextWidget() instanceof StyledText st)
+            if (viewer != null && (Object) (viewer.getTextWidget()) instanceof StyledText st)
                 textWidget = st;
             else
                 viewer = null;

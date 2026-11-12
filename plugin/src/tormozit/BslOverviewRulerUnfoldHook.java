@@ -170,7 +170,7 @@ public final class BslOverviewRulerUnfoldHook implements IStartup
 
     private static boolean isSiblingOfStyledText(Canvas canvas)
     {
-        if (!(canvas.getParent() instanceof Composite parent))
+        if (!((Object) (canvas.getParent()) instanceof Composite parent))
             return false;
         for (Control child : parent.getChildren())
         {

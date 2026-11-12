@@ -366,7 +366,7 @@ public class MoxelEditorHook implements IStartup
 
         static void install(DtGranularEditor<?> host, MoxelEditor editor)
         {
-            if (host.getEditorInput() == null || !(host.getEditorInput().getAdapter(IFile.class) instanceof IFile file)
+            if (host.getEditorInput() == null || !((Object) (host.getEditorInput().getAdapter(IFile.class)) instanceof IFile file)
                 || !HOOKED.add(editor))
                 return;
             new Session(file.getFullPath().toString(), editor).start();

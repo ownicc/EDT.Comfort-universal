@@ -238,7 +238,7 @@ public final class ContentAssistManager
     /** Display-фильтр фокуса: подключить автодополнение к лениво созданному редактору запроса. */
     private void installDcsQueryFocusPatch(DataSets dataSets)
     {
-        if (!(dataSets instanceof org.eclipse.swt.widgets.Composite page) || page.isDisposed()
+        if (!((Object) (dataSets) instanceof org.eclipse.swt.widgets.Composite page) || page.isDisposed()
             || page.getData(DCS_FOCUS_PATCH_KEY) != null)
             return;
         page.setData(DCS_FOCUS_PATCH_KEY, Boolean.TRUE);

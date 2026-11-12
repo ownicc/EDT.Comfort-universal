@@ -1790,11 +1790,11 @@ public final class MdEditorTreeHook
                 @Override
                 public Void execute(IBmTransaction transaction, IProgressMonitor monitor)
                 {
-                    if (!(transaction.toTransactionObject(target) instanceof MdObject txTarget))
+                    if (!((Object) (transaction.toTransactionObject(target)) instanceof MdObject txTarget))
                         return null;
                     for (FunctionalOption option : toRemove)
                     {
-                        if (transaction.toTransactionObject(option) instanceof FunctionalOption txOption)
+                        if ((Object) (transaction.toTransactionObject(option)) instanceof FunctionalOption txOption)
                             txOption.getContent().remove(txTarget);
                     }
                     return null;
@@ -1901,17 +1901,17 @@ public final class MdEditorTreeHook
                 @Override
                 public Void execute(IBmTransaction transaction, IProgressMonitor monitor)
                 {
-                    if (!(transaction.toTransactionObject(target) instanceof MdObject txTarget))
+                    if (!((Object) (transaction.toTransactionObject(target)) instanceof MdObject txTarget))
                         return null;
                     for (FunctionalOption option : toAdd)
                     {
-                        if (transaction.toTransactionObject(option) instanceof FunctionalOption txOption
+                        if ((Object) (transaction.toTransactionObject(option)) instanceof FunctionalOption txOption
                             && !txOption.getContent().contains(txTarget))
                             txOption.getContent().add(txTarget);
                     }
                     for (FunctionalOption option : toRemove)
                     {
-                        if (transaction.toTransactionObject(option) instanceof FunctionalOption txOption)
+                        if ((Object) (transaction.toTransactionObject(option)) instanceof FunctionalOption txOption)
                             txOption.getContent().remove(txTarget);
                     }
                     return null;

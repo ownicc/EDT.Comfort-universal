@@ -1656,7 +1656,7 @@ public final class RightsEditorFilterHook implements IStartup
         {
             if (!filter.allowsEdit(element))
                 return null;
-            if (delegate instanceof IToolTipProvider tips)
+            if ((Object) (delegate) instanceof IToolTipProvider tips)
                 return tips.getToolTipText(element);
             Object tip = Global.invoke(delegate, "getToolTipText", element); //$NON-NLS-1$
             return tip instanceof String s ? s : null;

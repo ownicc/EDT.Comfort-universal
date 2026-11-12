@@ -745,7 +745,7 @@ public final class BslInspectSupport
 
     static String watchExpressionText(IWatchExpression watch)
     {
-        if (watch instanceof IExpression expression)
+        if ((Object) (watch) instanceof IExpression expression)
         {
             String text = expression.getExpressionText();
             if (text != null && !text.isBlank())

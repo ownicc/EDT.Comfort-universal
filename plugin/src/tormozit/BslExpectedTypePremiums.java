@@ -5192,7 +5192,7 @@ final class BslExpectedTypePremiums
         }
         if (item == null || item.eIsProxy())
             return ""; //$NON-NLS-1$
-        String name = item instanceof DuallyNamedElement dually && dually.getNameRu() != null
+        String name = (Object) (item) instanceof DuallyNamedElement dually && dually.getNameRu() != null
             && !dually.getNameRu().isEmpty() ? dually.getNameRu() : item.getName();
         return name != null ? SmartContentAssistProcessor.localizeAssistTypeSegment(name) : ""; //$NON-NLS-1$
     }

@@ -272,7 +272,7 @@ public final class BslStructureInsertCommentTypes
             TypeContainerRef container = McoreFactory.eINSTANCE.createTypeContainerRef();
             for (TypeItem item : liveTypes)
             {
-                if (item instanceof EObject eObject)
+                if ((Object) (item) instanceof EObject eObject)
                     container.getTypes().add((TypeItem)EcoreUtil.copy(eObject));
             }
             mock.setTypeContainer(container);

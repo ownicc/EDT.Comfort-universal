@@ -506,7 +506,7 @@ final class MetadataTypeMenu
     private static void openTypeDocumentation(Request request, Browser browser)
     {
         var source = request.source;
-        if (!(source.getDocument() instanceof IXtextDocument document))
+        if (!((Object) (source.getDocument()) instanceof IXtextDocument document))
             return;
         var services = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(document.getResourceURI());
         var hover = services == null ? null : services.get(IEObjectHoverProvider.class);

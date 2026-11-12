@@ -1019,7 +1019,7 @@ public final class BslEditorHoverHook implements IStartup
             lastDirective = (directive != null && !directive.isBlank()) ? directive : null;
             lastCreationSite = isImplicitVariableCreationAt(region);
             resolveMemberTargets(region);
-            if (editor.getDocument() instanceof IXtextDocument document)
+            if ((Object) (editor.getDocument()) instanceof IXtextDocument document)
             {
                 var descriptionLinks = ContentAssistSessionReloader.readOnlyPeekAst(document, resource ->
                     ParamHintHtmlModifier.methodDescriptionLinksForInput(info, document.getResourceURI(),
@@ -1302,7 +1302,7 @@ public final class BslEditorHoverHook implements IStartup
             try
             {
                 var links = BslStructureInsertCommentTypes.seeLinksAt(textViewer, region.getOffset());
-                if (links.isEmpty() || !(editor.getDocument() instanceof IXtextDocument document))
+                if (links.isEmpty() || !((Object) (editor.getDocument()) instanceof IXtextDocument document))
                     return null;
                 return ParamHintHtmlModifier.memberSeeLinksBlock(links, document.getResourceURI(),
                     MethodDefinitionLink::registerAction);
@@ -1316,7 +1316,7 @@ public final class BslEditorHoverHook implements IStartup
         private Map<String, DefinedTypeLinks.Link> resolveDefinedTypeLinks(String html)
         {
             Set<String> names = DefinedTypeLinks.names(html);
-            if (names.isEmpty() || !(editor.getDocument() instanceof IXtextDocument document))
+            if (names.isEmpty() || !((Object) (editor.getDocument()) instanceof IXtextDocument document))
                 return Map.of();
             return ContentAssistSessionReloader.readOnlyPeekAst(document, (IUnitOfWork<Map<String, DefinedTypeLinks.Link>, XtextResource>) resource ->
                 DefinedTypeLinks.resolve(names, resource));
@@ -1381,7 +1381,7 @@ public final class BslEditorHoverHook implements IStartup
         {
             lastFunctionTarget = null;
             lastMethodDescriptionLinks = Map.of();
-            if (!(editor.getDocument() instanceof IXtextDocument document))
+            if (!((Object) (editor.getDocument()) instanceof IXtextDocument document))
                 return;
             ContentAssistSessionReloader.readOnlyPeekAst(document, (IUnitOfWork<Void, XtextResource>) resource -> {
                 EObject object = resource == null ? null
@@ -1434,7 +1434,7 @@ public final class BslEditorHoverHook implements IStartup
          */
         private String resolveFormHandlersHtml(IRegion region)
         {
-            if (!(editor.getDocument() instanceof IXtextDocument document))
+            if (!((Object) (editor.getDocument()) instanceof IXtextDocument document))
                 return null;
             try
             {

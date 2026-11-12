@@ -2014,7 +2014,7 @@ final class BslQueryLiteralSupport
          */
         private void resolveDefinedTypeSuffixes(ICompletionProposal[] proposals)
         {
-            if (editor == null || !(editor.getDocument() instanceof IXtextDocument bsl))
+            if (editor == null || !((Object) (editor.getDocument()) instanceof IXtextDocument bsl))
                 return;
             Set<String> names = new HashSet<>();
             String projectName = null;

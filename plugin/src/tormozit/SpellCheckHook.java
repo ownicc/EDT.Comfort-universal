@@ -713,7 +713,7 @@ public final class SpellCheckHook implements IStartup
     private static void attachPageChangedListener(PreferenceDialog dialog, Display display,
         Shell shell)
     {
-        if (!(dialog instanceof IPageChangeProvider provider))
+        if (!((Object) (dialog) instanceof IPageChangeProvider provider))
             return;
         synchronized (pageListenersAttached)
         {

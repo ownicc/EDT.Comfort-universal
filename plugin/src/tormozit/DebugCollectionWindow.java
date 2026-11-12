@@ -1048,7 +1048,7 @@ public final class DebugCollectionWindow implements DebugCollectionLoadScheduler
 
         text.addListener(SWT.KeyDown, e ->
         {
-            if (!(e instanceof Event evt))
+            if (!((Object) (e) instanceof Event evt))
                 return;
             boolean ctrl = (evt.stateMask & SWT.CTRL) != 0;
             if (!ctrl)
@@ -1294,7 +1294,7 @@ public final class DebugCollectionWindow implements DebugCollectionLoadScheduler
             return;
         Display display = shell.getDisplay();
         collectionKeyFilter = event -> {
-            if (!(event instanceof Event e) || e.type != SWT.KeyDown)
+            if (!((Object) (event) instanceof Event e) || e.type != SWT.KeyDown)
                 return;
             if (shell.isDisposed() || display.getActiveShell() != shell)
                 return;

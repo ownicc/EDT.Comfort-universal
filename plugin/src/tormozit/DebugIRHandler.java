@@ -368,7 +368,7 @@ public final class DebugIRHandler
 
     private static String getWatchExpressionText(IWatchExpression watchExpr)
     {
-        if (watchExpr instanceof IExpression expression)
+        if ((Object) (watchExpr) instanceof IExpression expression)
             return expression.getExpressionText();
         return null;
     }

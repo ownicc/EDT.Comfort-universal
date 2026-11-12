@@ -2470,7 +2470,7 @@ public class ConfigSearchDialogHook implements IStartup
         private static String[] fromTransaction(IBmTransaction transaction, long id)
         {
             IBmObject object = transaction.getObjectById(id);
-            if (!(object instanceof EObject eObject))
+            if (!((Object) (object) instanceof EObject eObject))
                 return new String[] { null, null };
             return new String[] { projectNameOf(eObject), GetRef.eObjectToFullName(eObject) };
         }

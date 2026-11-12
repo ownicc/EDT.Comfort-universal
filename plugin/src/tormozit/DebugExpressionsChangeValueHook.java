@@ -2217,7 +2217,7 @@ public final class DebugExpressionsChangeValueHook implements IStartup
 
         private static String keyForWatch(IWatchExpression watch)
         {
-            if (watch instanceof IExpression expression)
+            if ((Object) (watch) instanceof IExpression expression)
             {
                 String text = expression.getExpressionText();
                 if (text != null && !text.isBlank())

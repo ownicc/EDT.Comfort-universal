@@ -66,7 +66,7 @@ public class SortTextLinesHandler extends AbstractHandler
             if (editor == null && editorVar instanceof IEditorPart ep)
                 editor = ep;
         }
-        if (part == null && editor instanceof IWorkbenchPart wp)
+        if (part == null && (Object) (editor) instanceof IWorkbenchPart wp)
             part = wp;
 
         return TextEditor.resolveContext(part, editor);

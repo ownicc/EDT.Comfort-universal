@@ -172,10 +172,10 @@ public final class TextEditor
                             if (qlEditor != null)
                             {
                                 var viewerObj = qlEditor.getViewer();
-                                if (viewerObj instanceof ISourceViewer viewer
+                                if ((Object) (viewerObj) instanceof ISourceViewer viewer
                                     && focusInEditorViewer(focus, viewer))
                                 {
-                                    boolean editable = viewer.getTextWidget()
+                                    boolean editable = (Object) (viewer.getTextWidget())
                                         instanceof StyledText st && st.getEditable();
                                     return buildContext(viewer, QL_COMPARE_EXTENSION, editable);
                                 }

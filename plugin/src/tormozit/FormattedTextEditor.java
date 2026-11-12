@@ -426,7 +426,7 @@ final class FormattedTextEditor
      */
     private void updateBracketMatching()
     {
-        if (!(viewer instanceof org.eclipse.jface.text.ITextViewerExtension2 painters))
+        if (!((Object) (viewer) instanceof org.eclipse.jface.text.ITextViewerExtension2 painters))
             return;
         if (bracketPainter != null)
         {

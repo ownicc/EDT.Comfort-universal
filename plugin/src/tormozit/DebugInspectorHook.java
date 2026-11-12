@@ -131,7 +131,7 @@ public final class DebugInspectorHook implements IStartup
     {
         if (viewer == null || Display.getCurrent() == null)
             return false;
-        StyledText text = viewer.getTextWidget() instanceof StyledText st ? st : null;
+        StyledText text = (Object) (viewer.getTextWidget()) instanceof StyledText st ? st : null;
         return text != null && !text.isDisposed()
             && Boolean.TRUE.equals(text.getData(INSPECT_EXPRESSION_EDITOR_KEY));
     }
@@ -1545,7 +1545,7 @@ public final class DebugInspectorHook implements IStartup
             syncHeaderBackground(titleArea);
             titleArea.layout(true, true);
             Composite headerRow = titleArea.getParent();
-            if (headerRow instanceof Composite row && !row.isDisposed()
+            if ((Object) (headerRow) instanceof Composite row && !row.isDisposed()
                 && row != titleArea && row.getLayout() instanceof GridLayout)
                 row.layout(true, true);
         }
@@ -2534,7 +2534,7 @@ public final class DebugInspectorHook implements IStartup
                 DebugInspectorDebug.problem("expression assist: create editor " + e.getMessage()); //$NON-NLS-1$
                 return;
             }
-            if (!(editor.getViewer() instanceof SourceViewer sourceViewer))
+            if (!((Object) (editor.getViewer()) instanceof SourceViewer sourceViewer))
             {
                 host.dispose();
                 combo.setData(INSTALLED_KEY, Boolean.FALSE);

@@ -1020,7 +1020,7 @@ public final class BslDocCommentTypeMerge
         {
             for (TypeItem propType : sourceTypes)
             {
-                if (propType instanceof EObject eObject)
+                if ((Object) (propType) instanceof EObject eObject)
                 {
                     TypeItem copy = (TypeItem)EcoreUtil.copy(eObject);
                     BslFormDataTypes.inheritOrigins(copy, List.of(propType));

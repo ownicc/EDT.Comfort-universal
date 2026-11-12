@@ -420,7 +420,7 @@ public class PictureDialogHook implements IStartup {
     private static void showInNavigator(TableViewer commonViewer)
     {
         CommonPicture picture = selectedCommonPicture(commonViewer);
-        if (picture instanceof EObject eObject)
+        if ((Object) (picture) instanceof EObject eObject)
             NavigatorReveal.revealAndActivateIfHidden(eObject);
     }
 

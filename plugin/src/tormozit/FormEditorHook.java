@@ -8155,7 +8155,7 @@ public class FormEditorHook implements IStartup
             {
                 if (!(element instanceof Item mappingItem) || mappingItem.getType() == null
                     || NOT_MOVABLE.contains(mappingItem.getType())
-                    || !(mappingItem.getDomain() instanceof FormItem domain) || domain.eIsProxy())
+                    || !((Object) (mappingItem.getDomain()) instanceof FormItem domain) || domain.eIsProxy())
                     return null;
                 if (!(mappingItem.eContainer() instanceof ItemsHolder<?> owner))
                     return null;
@@ -8462,7 +8462,7 @@ public class FormEditorHook implements IStartup
             Form form, Form modelForm, FormGroup modelGroup, IFormItemMovementService movement,
             List<String> collected, List<String> removedGroups)
         {
-            if (!(transaction.toTransactionObject(modelGroup) instanceof FormGroup group)
+            if (!((Object) (transaction.toTransactionObject(modelGroup)) instanceof FormGroup group)
                 || !(group.eContainer() instanceof FormItemContainer parent))
                 return;
             int position = parent.getItems().indexOf(group);
@@ -8653,7 +8653,7 @@ public class FormEditorHook implements IStartup
                 if (row.isDisposed())
                     continue;
                 String name = row.getData() instanceof Item mappingItem
-                    && mappingItem.getDomain() instanceof FormItem item ? item.getName() : null;
+                    && (Object) (mappingItem.getDomain()) instanceof FormItem item ? item.getName() : null;
                 if (name != null)
                 {
                     if (pending.contains(name))
@@ -8675,7 +8675,7 @@ public class FormEditorHook implements IStartup
                 if (row.isDisposed())
                     continue;
                 if (row.getData() instanceof Item mappingItem
-                    && mappingItem.getDomain() instanceof FormItem item
+                    && (Object) (mappingItem.getDomain()) instanceof FormItem item
                     && name.equals(item.getName()))
                     return row;
                 TreeItem found = findItemRow(row.getItems(), name);

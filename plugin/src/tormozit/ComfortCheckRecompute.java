@@ -403,7 +403,7 @@ public final class ComfortCheckRecompute
                         {
                             IBmObject object = transaction.getObjectById(id.longValue());
                             IBmObject top = object == null || object.bmIsTop() ? object : object.bmGetTopObject();
-                            IFile file = top instanceof EObject eObject ? lookup.getPlatformResource(eObject) : null;
+                            IFile file = (Object) (top) instanceof EObject eObject ? lookup.getPlatformResource(eObject) : null;
                             keys.put(id, file != null
                                 ? objectKey(URI.createPlatformResourceURI(file.getFullPath().toString(), true)
                                     .toPlatformString(false))

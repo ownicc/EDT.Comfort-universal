@@ -241,7 +241,7 @@ public final class MdEditorDefinedTypesPageHook implements IStartup
         EStructuralFeature refType = producedTypes.eClass().getEStructuralFeature("refType"); //$NON-NLS-1$
         Object refValue = refType != null ? producedTypes.eGet(refType) : null;
         // refType — обёртка MdType с идентификатором; сам TypeItem даёт getType() (как ProdusedTypesUtil EDT).
-        return refValue instanceof MdType mdType && mdType.getType() instanceof TypeItem type ? type : null;
+        return refValue instanceof MdType mdType && (Object) (mdType.getType()) instanceof TypeItem type ? type : null;
     }
 
     /** Свежая конфигурация проекта объекта (у расширения — его собственная). */
@@ -530,7 +530,7 @@ public final class MdEditorDefinedTypesPageHook implements IStartup
             }
             viewer.setInput(rows);
             syncChecks();
-            if (getEditor() instanceof DtGranularEditor<?> granularEditor)
+            if ((Object) (getEditor()) instanceof DtGranularEditor<?> granularEditor)
                 MdEditorTabsHook.requestRefresh(granularEditor);
         }
 

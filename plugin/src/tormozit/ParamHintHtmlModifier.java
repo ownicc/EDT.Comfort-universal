@@ -4631,7 +4631,7 @@ public final class ParamHintHtmlModifier
                 return html;
             // Определяемые типы EDT выводит текстом — ссылка как в подсказке при наведении.
             Set<String> definedTypes = DefinedTypeLinks.names(html);
-            if (!definedTypes.isEmpty() && editor.getDocument() instanceof IXtextDocument document)
+            if (!definedTypes.isEmpty() && (Object) (editor.getDocument()) instanceof IXtextDocument document)
             {
                 Map<String, DefinedTypeLinks.Link> links = ContentAssistSessionReloader.readOnlyPeekAst(document,
                     resource -> DefinedTypeLinks.resolve(definedTypes, resource));
@@ -8181,7 +8181,7 @@ public final class ParamHintHtmlModifier
             return names;
         for (TypeItem type : types)
         {
-            if (type instanceof DuallyNamedElement dually)
+            if ((Object) (type) instanceof DuallyNamedElement dually)
             {
                 addTypeMatchName(names, dually.getNameRu());
                 addTypeMatchName(names, dually.getName());
@@ -8452,7 +8452,7 @@ public final class ParamHintHtmlModifier
     {
         if (type == null)
             return ""; //$NON-NLS-1$
-        if (type instanceof DuallyNamedElement dually)
+        if ((Object) (type) instanceof DuallyNamedElement dually)
         {
             String ru = dually.getNameRu();
             if (ru != null && !ru.isEmpty())
