@@ -917,12 +917,12 @@ public final class BslDocCommentDescriptionFix
         throw new IOException("javac not found"); //$NON-NLS-1$
     }
 
-    static byte[] transformClass(String internalName, byte[] classfileBuffer)
+    static byte[] transformClass(String internalName, byte[] classfileBuffer, ClassLoader loader)
     {
         if (TARGET_COMMENT_INTERNAL.equals(internalName))
-            return transformCommentClass(classfileBuffer);
+            return transformCommentClass(classfileBuffer, loader);
         if (TARGET_UTILS_INTERNAL.equals(internalName))
-            return transformUtilsClass(classfileBuffer);
+            return transformUtilsClass(classfileBuffer, loader);
         return null;
     }
 
@@ -931,15 +931,16 @@ public final class BslDocCommentDescriptionFix
         return value instanceof Number number ? number.intValue() : 0;
     }
 
-    private static byte[] transformCommentClass(byte[] classfileBuffer)
+    private static byte[] transformCommentClass(byte[] classfileBuffer, ClassLoader loader)
     {
         ClassReader reader = new ClassReader(classfileBuffer);
         ClassWriter writer = new ClassWriter(reader, ClassWriter.COMPUTE_FRAMES)
         {
             @Override
-            protected String getCommonSuperClass(String type1, String type2)
+            protected ClassLoader getClassLoader()
             {
-                return "java/lang/Object"; //$NON-NLS-1$
+                // Иерархия EDT доступна загрузчику целевого бандла, а не бандла ASM.
+                return loader;
             }
         };
         final AtomicBoolean touched = new AtomicBoolean();
@@ -975,15 +976,15 @@ public final class BslDocCommentDescriptionFix
         return touched.get() ? writer.toByteArray() : null;
     }
 
-    private static byte[] transformUtilsClass(byte[] classfileBuffer)
+    private static byte[] transformUtilsClass(byte[] classfileBuffer, ClassLoader loader)
     {
         ClassReader reader = new ClassReader(classfileBuffer);
         ClassWriter writer = new ClassWriter(reader, ClassWriter.COMPUTE_FRAMES)
         {
             @Override
-            protected String getCommonSuperClass(String type1, String type2)
+            protected ClassLoader getClassLoader()
             {
-                return "java/lang/Object"; //$NON-NLS-1$
+                return loader;
             }
         };
         final AtomicBoolean touched = new AtomicBoolean();
@@ -1068,7 +1069,8 @@ public final class BslDocCommentDescriptionFix
             try
             {
                 String internal = name.replace('.', '/');
-                byte[] transformed = transformClass(internal, wovenClass.getBytes());
+                byte[] transformed = transformClass(internal, wovenClass.getBytes(),
+                    wovenClass.getBundleWiring().getClassLoader());
                 if (transformed != null)
                 {
                     wovenClass.setBytes(transformed);
@@ -1091,7 +1093,7 @@ public final class BslDocCommentDescriptionFix
                 return null;
             try
             {
-                return transformClass(className, classfileBuffer);
+                return transformClass(className, classfileBuffer, loader);
             }
             catch (Throwable t)
             {
