@@ -22,7 +22,7 @@
 
 ## p2
 
-Формат сайта обновления Eclipse. URL: `https://tormozit.github.io/EDT.Comfort/`.
+Формат сайта обновления Eclipse. URL: `https://ownicc.github.io/EDT.Comfort-universal/`.
 
 ## Улучшать списки
 

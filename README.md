@@ -4,20 +4,20 @@ Telegram https://t.me/EdtComfort
 ## Справка
 
 - В репозитории: [docs/README.md](docs/README.md)
-- На сайте: [https://tormozit.github.io/EDT.Comfort/help/](https://tormozit.github.io/EDT.Comfort/help/)
+- На сайте: [https://ownicc.github.io/EDT.Comfort-universal/help/](https://ownicc.github.io/EDT.Comfort-universal/help/)
 
 ## Установка
 
 ### Через интернет (рекомендуется)
 
 1. Главное меню → **Справка** → **Установить новое ПО…** → **Добавить**.
-2. Указать URL сайта обновления (последняя версия, composite): `https://tormozit.github.io/EDT.Comfort/`
+2. Указать URL сайта обновления (последняя успешная сборка master): `https://ownicc.github.io/EDT.Comfort-universal/`
 3. Отметить **EDT Comfort** → **Далее** → **Готово**.
 4. Если всё сделано правильно, EDT предложит **перезапуск** — согласитесь.
 
 ### Без интернета (архив)
 
-1. Скачать ZIP с [релизов GitHub](https://github.com/tormozit/EDT.Comfort/releases) или с URL версии, например `https://tormozit.github.io/EDT.Comfort/1.0.0.13/`
+1. Скачать [установочный ZIP](https://ownicc.github.io/EDT.Comfort-universal/tormozit.comfort.zip) с нашего сайта обновлений.
 2. Главное меню → **Справка** → **Установить новое ПО…** → **Добавить** → **Архив…** → выбрать ZIP → **Добавить**.
 3. Отметить **EDT Comfort** → **Далее** → **Готово**.
 4. Если всё сделано правильно, EDT предложит **перезапуск** — согласитесь.
@@ -27,7 +27,7 @@ Telegram https://t.me/EdtComfort
 Тот же URL или архив новой версии. Если установщик **не видит новую версию**:
 
 1. В диалоге установки — **Управление…**
-2. В списке сайтов — **Обновить** у `https://tormozit.github.io/EDT.Comfort/`
+2. В списке сайтов — **Обновить** у `https://ownicc.github.io/EDT.Comfort-universal/`
 3. Либо удалить сайт и **добавить заново** (из архива — с именем установочного файла)
 
 Полный текст: [docs/ustanovka-i-obnovlenie.md](docs/ustanovka-i-obnovlenie.md). Уведомление о версии — [настройки](docs/nastroyki.md).
@@ -36,7 +36,7 @@ Telegram https://t.me/EdtComfort
 
 ## Публикация
 
-1. `site\version.txt` — при необходимости поднять
-2. `site\clean.bat`
-3. Eclipse - site\BuildAll
-4. GitHub Actions - Publish p2 site, Publush docs
+Изменения разрабатываются в локальной рабочей ветке, после проверки объединяются в
+`master`. Push `master` запускает **Build p2 archive**: тесты, сборку ZIP и
+публикацию p2-сайта со справкой на GitHub Pages. Повторный запуск доступен вручную
+в Actions. Подробности: [сборка и публикация](docs/github-build.md).

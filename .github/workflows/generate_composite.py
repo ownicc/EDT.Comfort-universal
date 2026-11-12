@@ -13,7 +13,7 @@ latest = os.environ.get("LATEST_VERSION", "")
 CATEGORY_ID = "comfort"
 BUNDLE_ID = "tormozit.comfort"
 FEATURE_GROUP_IU = "tormozit.comfort.feature.feature.group"
-SITE_BASE_URL = "https://tormozit.github.io/EDT.Comfort/"
+SITE_BASE_URL = "https://ownicc.github.io/EDT.Comfort-universal/"
 
 ROOT_P2_ITEMS = (
     "features",

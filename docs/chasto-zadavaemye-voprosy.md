@@ -2,7 +2,7 @@
 
 ## Не видна новая версия плагина
 
-**Управление…** → **Обновить** у сайта `https://tormozit.github.io/EDT.Comfort/` или передобавьте сайт.
+**Управление…** → **Обновить** у сайта `https://ownicc.github.io/EDT.Comfort-universal/` или передобавьте сайт.
 
 ## Где настройки?
 
@@ -22,4 +22,4 @@
 
 ## Где описание изменений?
 
-[Релизы GitHub](https://github.com/tormozit/EDT.Comfort/releases) и блок версии в параметрах Комфорт.
+[История изменений](https://github.com/ownicc/EDT.Comfort-universal/commits/master) и блок версии в параметрах Комфорт.

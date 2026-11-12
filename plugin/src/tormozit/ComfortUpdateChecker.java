@@ -25,7 +25,7 @@ import org.eclipse.ui.PlatformUI;
 public final class ComfortUpdateChecker
 {
     public static final String UPDATE_SITE_URL =
-            "https://tormozit.github.io/EDT.Comfort/"; //$NON-NLS-1$
+            "https://ownicc.github.io/EDT.Comfort-universal/"; //$NON-NLS-1$
 
     private static final long CHECK_INTERVAL_MS = 24L * 60 * 60 * 1000;
     private static final int CONNECT_TIMEOUT_MS = 10_000;

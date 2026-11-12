@@ -85,10 +85,10 @@ public class ComfortPreferencePage
     private Link updateLink;
 
     private static final String REPLACE_LIST_FILTERS_DOC_URL =
-            "https://tormozit.github.io/EDT.Comfort/help#/uluchshenie-spiskov"; //$NON-NLS-1$
+            "https://ownicc.github.io/EDT.Comfort-universal/help#/uluchshenie-spiskov"; //$NON-NLS-1$
 
     private static final String EXTENDED_TYPES_DOC_URL =
-            "https://tormozit.github.io/EDT.Comfort/help#/avtodopolnenie?id=extended-types"; //$NON-NLS-1$
+            "https://ownicc.github.io/EDT.Comfort-universal/help#/avtodopolnenie?id=extended-types"; //$NON-NLS-1$
 
     private static final String REPLACE_LIST_FILTERS_TOOLTIP =
             "Фильтр делится пробелами на фрагменты: ищется и подсвечивается каждый, с мягким учётом порядка.\n"
@@ -986,7 +986,7 @@ public class ComfortPreferencePage
         return latest != null ? latest.getChangesUrl() : ""; //$NON-NLS-1$
     }
 
-    private static final String HOME_PAGE_URL = "https://tormozit.github.io/EDT.Comfort"; //$NON-NLS-1$
+    private static final String HOME_PAGE_URL = "https://ownicc.github.io/EDT.Comfort-universal"; //$NON-NLS-1$
     private static final String NEW_ISSUE_URL =
         "https://github.com/tormozit/EDT.Comfort/issues/new"; //$NON-NLS-1$
     private static final String TELEGRAM_CHAT_URL = "https://t.me/EdtComfort"; //$NON-NLS-1$

@@ -25,8 +25,8 @@ public final class ComfortVersionInfo
             "tormozit.comfort.feature.feature.group"; //$NON-NLS-1$
     private static final String BUNDLE_P2_CORE = "org.eclipse.equinox.p2.core"; //$NON-NLS-1$
     private static final String BUNDLE_P2_ENGINE = "org.eclipse.equinox.p2.engine"; //$NON-NLS-1$
-    private static final String RELEASES_BASE_URL =
-            "https://github.com/tormozit/EDT.Comfort/releases/tag/"; //$NON-NLS-1$
+    private static final String CHANGES_URL =
+            "https://github.com/ownicc/EDT.Comfort-universal/commits/master"; //$NON-NLS-1$
     /**
      * Метка сборки в конце версии: {@code 1.0.2.202610120038} (три числа и метка четвёртым
      * сегментом) либо прежний вид {@code 1.0.1.9-202610062102} (метка после дефиса).
@@ -212,7 +212,7 @@ public final class ComfortVersionInfo
     {
         if (baseVersion == null || baseVersion.isBlank() || "—".equals(baseVersion)) //$NON-NLS-1$
             return ""; //$NON-NLS-1$
-        return RELEASES_BASE_URL + baseVersion;
+        return CHANGES_URL;
     }
 
     /**

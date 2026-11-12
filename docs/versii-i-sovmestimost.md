@@ -1,8 +1,9 @@
 # Версии и совместимость
 
-- **EDT:** 20252-2026
-- **ОС:** желательно Windows (основная платформа; часть функций только в ней — открытие проводника ОС, активация окон, функции ИР)
-- **ИР:** 8.19 (опция)
+- **EDT:** 2025.2–2026; сборка использует target EDT 2025.2.
+- **ОС:** общий ZIP. Часть функций, включая COM-подключение ИР, доступна только на Windows.
+- **Java:** классы Java 17; для сборки Tycho нужен JDK 21 или новее.
 
-Релизы: [GitHub](https://github.com/tormozit/EDT.Comfort/releases)  
-Фиксированная версия p2: `https://tormozit.github.io/EDT.Comfort/<версия>/`
+Текущая сборка: `https://ownicc.github.io/EDT.Comfort-universal/`.
+[История изменений](https://github.com/ownicc/EDT.Comfort-universal/commits/master).
+Подробности сборки и проверок — [GitHub Actions](github-build.md).

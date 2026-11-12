@@ -1,197 +1,45 @@
 name: Publish p2 site
 
-# Локально: site\clean.bat → Build All на проекте site в PDE → закоммитить
-# site/features/, site/plugins/, site/content.jar, site/artifacts.jar → Run workflow.
 on:
-  workflow_dispatch:
-    inputs:
-      mode:
-        description: 'resanitize — все версии в EDT (sanitize gh-pages); republish — та же линейка, новый qualifier; new — новая линейка'
-        required: true
-        default: 'resanitize'
-        type: choice
-        options:
-          - resanitize
-          - republish
-          - new
-
-concurrency:
-  group: gh-pages-publish
-  cancel-in-progress: false
-
-permissions:
-  contents: write
+  workflow_call:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Download installation archive from this build
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
-          fetch-depth: 0
+          name: comfort-p2-${{ github.sha }}
+          path: .tmp/ci-artifact
 
-      - name: Read version
-        id: ver
-        run: |
-          VER=$(grep 'comfort.release=' site/version.txt | cut -d= -f2 | tr -d '[:space:]')
-          echo "version=$VER" >> $GITHUB_OUTPUT
-          echo "Publishing version: $VER"
+      - name: Configure GitHub Pages
+        id: pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
 
-      - name: Verify p2 repository is committed
-        run: |
-          if [ ! -d site/features ]; then
-            echo "ERROR: site/features/ not found in git."
-            echo "Build locally, then commit p2 artifacts:"
-            echo "  site/features/  site/plugins/  site/content.jar  site/artifacts.jar"
-            exit 1
-          fi
-          ls -la site/features/ site/plugins/ 2>/dev/null || true
-          ls -la site/*.jar 2>/dev/null || true
-
-      - name: Verify release artifacts
-        run: bash .github/workflows/verify_p2_site.sh "${{ inputs.mode }}"
-
-      - name: Stash p2 artifacts
-        run: |
-          mkdir -p p2-staging
-          for item in features plugins content.jar artifacts.jar p2.index; do
-            if [ -e "site/$item" ]; then
-              cp -r "site/$item" p2-staging/
-            fi
-          done
-          ls -laR p2-staging
-
-      - name: Prepare deploy folder
-        run: |
-          set -euo pipefail
-          VER="${{ steps.ver.outputs.version }}"
-          mkdir -p "deploy/$VER"
-          cp -r p2-staging/. "deploy/$VER/"
-
-          : > /tmp/old-pages-versions.txt
-          if git fetch origin gh-pages 2>/dev/null && git rev-parse --verify origin/gh-pages >/dev/null 2>&1; then
-            mkdir -p /tmp/old-pages
-            git archive origin/gh-pages | tar -x -C /tmp/old-pages
-            shopt -s nullglob
-            for dir in /tmp/old-pages/*/; do
-              name=$(basename "$dir")
-              case "$name" in
-                p2.index|compositeContent.jar|compositeArtifacts.jar|index.html) continue ;;
-              esac
-              if [[ "$name" =~ ^[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
-                echo "$name" >> /tmp/old-pages-versions.txt
-              fi
-              if [ ! -d "deploy/$name" ]; then
-                cp -r "$dir" "deploy/$name"
-              fi
-            done
-          else
-            echo "No gh-pages branch yet — first publish."
-          fi
-
-          ls -la deploy
-          ls -la "deploy/$VER"
-          echo "Previous gh-pages versions:"
-          cat /tmp/old-pages-versions.txt || true
-
-      - name: Generate p2 site layout
+      - name: Validate and prepare update site
         env:
-          LATEST_VERSION: ${{ steps.ver.outputs.version }}
-        run: python3 .github/workflows/generate_composite.py
+          COMMIT_SHA: ${{ github.sha }}
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+        run: python3 scripts/prepare_update_site.py .tmp/ci-artifact .tmp/pages "$COMMIT_SHA" "$SITE_URL/"
 
-      - name: Verify deploy folder before push
-        run: |
-          set -euo pipefail
-          VER="${{ steps.ver.outputs.version }}"
-          test -d "deploy/$VER/features" || (echo "ERROR: deploy/$VER/features missing" && exit 1)
-          test -d "deploy/$VER/plugins" || (echo "ERROR: deploy/$VER/plugins missing" && exit 1)
-          test -f deploy/content.jar || (echo "ERROR: deploy/content.jar missing at root" && exit 1)
-          test -f deploy/content.xml || (echo "ERROR: deploy/content.xml missing at root" && exit 1)
-          test -f deploy/artifacts.jar || (echo "ERROR: deploy/artifacts.jar missing at root" && exit 1)
-          test -f deploy/artifacts.xml || (echo "ERROR: deploy/artifacts.xml missing at root" && exit 1)
-          test -d deploy/features || (echo "ERROR: deploy/features missing at root" && exit 1)
-          test -d deploy/plugins || (echo "ERROR: deploy/plugins missing at root" && exit 1)
-          test -f deploy/p2.index || (echo "ERROR: deploy/p2.index missing" && exit 1)
-          test -f "deploy/$VER/p2.index" || (echo "ERROR: deploy/$VER/p2.index missing" && exit 1)
-          test -f deploy/.nojekyll || (echo "ERROR: deploy/.nojekyll missing" && exit 1)
-          grep -q content.xml deploy/p2.index || (echo "ERROR: root p2.index must reference content.xml (simple repo)" && exit 1)
-          grep -q "tormozit.comfort.feature.feature.group" deploy/content.xml || (echo "ERROR: root content.xml missing feature.group IU" && exit 1)
-          test ! -f deploy/compositeContent.jar || (echo "ERROR: root compositeContent.jar must not exist" && exit 1)
-          test ! -f deploy/compositeContent.xml || (echo "ERROR: root compositeContent.xml must not exist" && exit 1)
-          grep -q "unit id='tormozit.comfort'" "deploy/$VER/content.xml" || (echo "ERROR: bundle IU missing from deploy/$VER/content.xml" && exit 1)
-
-          ROOT_GROUP_COUNT=$(grep -o "<unit id='tormozit.comfort.feature.feature.group'" deploy/content.xml | wc -l | tr -d ' ')
-          if [[ "$ROOT_GROUP_COUNT" -lt 1 ]]; then
-            echo "ERROR: root content.xml has no feature.group IU"
-            exit 1
-          fi
-
-          shopt -s nullglob
-          version_dirs=()
-          for dir in deploy/*/; do
-            name=$(basename "$dir")
-            [[ "$name" =~ ^[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?$ ]] || continue
-            version_dirs+=("$name")
-            VER_QUAL=$(grep -o "id='tormozit.comfort.feature.feature.group' version='[^']*'" "deploy/$name/content.xml" | head -1 | sed "s/.*version='//;s/'$//")
-            if [[ -z "$VER_QUAL" ]]; then
-              echo "ERROR: deploy/$name/content.xml missing feature.group"
-              exit 1
-            fi
-            grep -q "id='tormozit.comfort.feature.feature.group' version='$VER_QUAL'" deploy/content.xml || (
-              echo "ERROR: root content.xml missing feature.group $VER_QUAL from $name"
-              exit 1
-            )
-            test -d "deploy/$name/features" || (echo "ERROR: deploy/$name/features missing" && exit 1)
-            test -d "deploy/$name/plugins" || (echo "ERROR: deploy/$name/plugins missing" && exit 1)
-            test -f "deploy/$name/content.xml" || (echo "ERROR: deploy/$name/content.xml missing (sanitize failed?)" && exit 1)
-            # generate_composite.py теперь дописывает <update> и архивным версиям
-            # (ensure_update_elements), не только текущей — иначе апдейт между
-            # двумя старыми версиями тоже теряет root в "Установленном ПО".
-            if ! grep -q "<update id='tormozit.comfort.feature.feature.group'" "deploy/$name/content.xml"; then
-              echo "ERROR: deploy/$name/content.xml missing <update> for feature.group (p2 won't recognize upgrades, breaks 'Installed Software' after update)"
-              exit 1
-            fi
-            if ! grep -q "<update id='tormozit.comfort'" "deploy/$name/content.xml"; then
-              echo "ERROR: deploy/$name/content.xml missing <update> for bundle tormozit.comfort"
-              exit 1
-            fi
-            if grep -q "tormozit.github.io/EDT.Comfort/" "deploy/$name/content.xml"; then
-              echo "ERROR: deploy/$name/content.xml still references composite parent URL"
-              exit 1
-            fi
-          done
-
-          if [[ ! " ${version_dirs[*]} " =~ " ${VER} " ]]; then
-            echo "ERROR: latest version folder $VER missing from deploy/"
-            exit 1
-          fi
-
-          if [[ -f /tmp/old-pages-versions.txt ]]; then
-            while IFS= read -r old_ver || [[ -n "$old_ver" ]]; do
-              [[ -z "$old_ver" ]] && continue
-              if [[ "$old_ver" != "$VER" ]] && [[ ! -d "deploy/$old_ver" ]]; then
-                echo "ERROR: previous gh-pages version $old_ver missing from deploy/"
-                exit 1
-              fi
-            done < /tmp/old-pages-versions.txt
-          fi
-
-          dir_count=${#version_dirs[@]}
-          if [[ "$ROOT_GROUP_COUNT" -ne "$dir_count" ]]; then
-            echo "ERROR: root feature.group count $ROOT_GROUP_COUNT != version folders $dir_count"
-            exit 1
-          fi
-          echo "Root feature.group count: $ROOT_GROUP_COUNT"
-          echo "Version folders (${dir_count}): ${version_dirs[*]}"
-          echo "deploy tree:"
-          find deploy -maxdepth 3 -type f | head -30 || true
-
-      - name: Push to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./deploy
-          publish_branch: gh-pages
-          force_orphan: true
-          commit_message: "Publish p2 site ${{ steps.ver.outputs.version }}"
+          path: .tmp/pages
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5

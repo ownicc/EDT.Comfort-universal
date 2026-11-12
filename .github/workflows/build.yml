@@ -10,7 +10,7 @@ permissions:
 
 concurrency:
   group: comfort-build-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -36,6 +36,9 @@ jobs:
           key: ${{ runner.os }}-jdk21-tycho-${{ hashFiles('**/pom.xml', 'target/*.target', '.mvn/**', 'mvnw', 'mvnw.cmd') }}
           restore-keys: |
             ${{ runner.os }}-jdk21-tycho-
+
+      - name: Test update site publication
+        run: python3 tests/update-site/run.py
 
       - name: Test Tycho packaging on synthetic bundles
         run: python3 tests/tycho-build/run.py
@@ -76,3 +79,11 @@ jobs:
           include-hidden-files: true
           if-no-files-found: warn
           retention-days: 14
+
+  publish:
+    needs: build
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/publish.yml

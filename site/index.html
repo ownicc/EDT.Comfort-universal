@@ -21,14 +21,14 @@
   <h3>Через интернет (рекомендуется)</h3>
   <ol>
     <li>Главное меню → <strong>Справка</strong> → <strong>Установить новое ПО…</strong> → <strong>Добавить</strong>.</li>
-    <li>Указать URL сайта обновления (последняя версия, composite): <code>{{SITE_BASE_URL}}</code></li>
+    <li>Указать URL сайта обновления (последняя успешная сборка master): <code>{{SITE_BASE_URL}}</code></li>
     <li>Отметить <strong>EDT Comfort</strong> → <strong>Далее</strong> → <strong>Готово</strong>.</li>
     <li>Если всё сделано правильно, EDT предложит <strong>перезапуск</strong> — согласитесь.</li>
   </ol>
 
   <h3>Без интернета (архив)</h3>
   <ol>
-    <li>Скачать ZIP с <a href="https://github.com/tormozit/EDT.Comfort/releases">релизов GitHub</a> или с URL фиксированной версии, например <code>https://tormozit.github.io/EDT.Comfort/1.0.0.13/</code></li>
+    <li>Скачать <a href="tormozit.comfort.zip">установочный ZIP</a> с этого сайта. <a href="SHA256SUMS">SHA-256</a></li>
     <li>Главное меню → <strong>Справка</strong> → <strong>Установить новое ПО…</strong> → <strong>Добавить</strong> → <strong>Архив…</strong> → выбрать ZIP → <strong>Добавить</strong>.</li>
     <li>Отметить <strong>EDT Comfort</strong> → <strong>Далее</strong> → <strong>Готово</strong>.</li>
     <li>Если всё сделано правильно, EDT предложит <strong>перезапуск</strong> — согласитесь.</li>
@@ -44,9 +44,8 @@
   <p>Полный текст: <a href="help/#/ustanovka-i-obnovlenie">установка и обновление</a>. Уведомление о версии — <a href="help/#/nastroyki">настройки</a>.</p>
   <p><strong>Параметры → Комфорт</strong> — настройки на верхнем уровне.</p>
 
-  <h2>Архивные версии (фиксированный URL)</h2>
-  <ul>
-{{VERSION_LINKS}}
-  </ul>
+  <h2>Текущая сборка</h2>
+  <p>Версия: <strong>{{BUILD_VERSION}}</strong>. <a href="build-info.json">Сведения о сборке</a>.</p>
+  <p><a href="https://github.com/ownicc/EDT.Comfort-universal">Наш репозиторий</a> · <a href="https://github.com/ownicc/EDT.Comfort-universal/commits/master">Изменения</a></p>
 </body>
 </html>
